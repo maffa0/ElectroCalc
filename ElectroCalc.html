@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ElectroCalc — Electronics Toolkit</title>
+<style>
+:root{--bg:#08121d;--panel:#101f2e;--panel2:#14283a;--line:#244155;--text:#edf7ff;--muted:#a7bdcd;--teal:#22e0c0;--cyan:#55cfff;--orange:#ffb44c;--red:#ff657a;--purple:#c38bff;--shadow:0 14px 35px #0003}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 75% 0%,#123149 0,transparent 40%),var(--bg);color:var(--text);font:15px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}button,input,select{font:inherit}button{cursor:pointer}.app{min-height:100vh;display:grid;grid-template-columns:245px minmax(0,1fr)}aside{background:#0a1724;border-right:1px solid var(--line);padding:24px 15px;display:flex;flex-direction:column;gap:25px}.brand{display:flex;align-items:center;gap:11px;padding:0 8px}.bolt{font-size:37px;color:var(--teal);line-height:1}.brand strong{font-size:24px;letter-spacing:-.7px}.brand strong span{color:var(--teal)}.brand small{display:block;color:var(--muted);font-size:12px}.nav{display:grid;gap:7px}.nav button{border:1px solid transparent;background:transparent;color:#dcebf5;text-align:left;padding:12px;border-radius:11px;display:flex;gap:12px;align-items:center}.nav button .ico{width:23px;text-align:center;font-size:19px}.nav button:hover,.nav button.active{background:#103441;border-color:#15545c;color:var(--teal)}.about{margin-top:auto;padding:14px;border:1px solid #14505b;background:#0d2632;border-radius:12px;color:var(--muted);font-size:13px}.about strong{display:block;color:var(--teal);margin-bottom:5px;font-size:15px}main{padding:28px;min-width:0;max-width:1600px;width:100%;margin:auto}.hero{padding:27px 30px;border:1px solid var(--line);border-radius:17px;background:linear-gradient(110deg,#10253a,#0e2938 70%,#103d4b);box-shadow:var(--shadow);position:relative;overflow:hidden;margin-bottom:18px}.hero:after{content:"⌘";position:absolute;right:45px;top:4px;font-size:110px;color:#1a9caa22;font-weight:800}.hero h1{font-size:clamp(25px,3vw,39px);letter-spacing:-1px;margin:0 0 5px}.hero h1 span{color:var(--teal)}.hero p{color:#bdd3e2;font-size:17px;margin:0;max-width:620px}.tools{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-bottom:17px}.tool-card{border:1px solid var(--line);border-radius:13px;padding:16px;background:linear-gradient(145deg,#152a3e,#0f1e2d);text-align:left;color:var(--text);min-height:145px;transition:.15s}.tool-card:hover{transform:translateY(-2px);border-color:#2b9f9a}.tool-card .bigico{font-size:26px;margin-bottom:7px;display:block}.tool-card strong{display:block;font-size:15px;margin-bottom:6px}.tool-card small{color:var(--muted);font-size:12px}.layout{display:grid;grid-template-columns:1.3fr 1fr;gap:14px;align-items:start}.panel{border:1px solid var(--line);border-radius:14px;background:linear-gradient(145deg,#102131,#0c1a27);padding:17px;min-width:0;box-shadow:var(--shadow);scroll-margin-top:16px}.panel h2{font-size:18px;margin:0 0 14px;display:flex;gap:10px;align-items:center}.panel h2 .ico{color:var(--teal)}.subgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:5px;min-width:0}.field label{font-size:12px;color:#c3d6e4}.field input,.field select,.res-row input,.res-row select{width:100%;min-width:0;color:var(--text);background:#14283a;border:1px solid #315169;border-radius:7px;padding:9px 10px;outline:none}.field input:focus,.field select:focus{border-color:var(--teal);box-shadow:0 0 0 2px #22e0c022}.actions{display:flex;gap:9px;margin-top:13px;flex-wrap:wrap}.btn{border:1px solid #315169;background:#192f43;color:var(--text);border-radius:8px;padding:9px 15px}.btn.primary{background:var(--teal);border-color:var(--teal);color:#06211f;font-weight:750}.btn:hover{filter:brightness(1.08)}.result{border:1px solid #195260;background:#0c2734;border-radius:10px;padding:12px;margin-top:13px}.result h3{color:var(--teal);font-size:13px;margin:0 0 8px}.result-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.metric{background:#122b3b;padding:10px;border-radius:8px}.metric small{display:block;color:var(--muted);font-size:11px}.metric strong{display:block;color:var(--teal);font-size:18px;overflow-wrap:anywhere}.formula{color:var(--muted);font-size:12px;margin-top:9px}.hidden{display:none!important}.tabs{display:flex;gap:5px;background:#14283a;border-radius:9px;padding:4px;margin-bottom:13px}.tabs button{flex:1;border:0;border-radius:7px;background:transparent;color:var(--muted);padding:8px 5px;font-size:12px}.tabs button.active{background:var(--teal);color:#04231f;font-weight:700}.resistor-wrap{height:92px;display:flex;align-items:center;justify-content:center;margin:8px 0 12px;position:relative}.wire{height:9px;background:linear-gradient(#d8e7ee,#687c8b,#f4f8fa);width:100%;border-radius:8px;position:absolute}.resistor{position:relative;width:62%;height:57px;border-radius:28px;background:linear-gradient(90deg,#c49a6b,#f0d4a4 20%,#e8c797 80%,#bb8e5e);box-shadow:inset 0 4px 6px #fff7,inset 0 -5px 8px #805b3544;display:flex;justify-content:space-evenly;align-items:stretch;padding:0 17px}.band{width:12px;height:100%;box-shadow:2px 0 3px #0002}.color-fields{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.color-fields label{font-size:11px;color:var(--muted)}.color-fields select{margin-top:4px;padding:8px 4px;font-size:12px}.color-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px}.segmented{display:flex;gap:6px;margin-bottom:12px}.segmented button{flex:1}.converter-line{display:grid;grid-template-columns:minmax(0,1fr) 80px 36px minmax(0,1fr) 80px;gap:7px;align-items:end}.swap{height:38px;border-radius:8px;border:1px solid var(--line);background:#173449;color:var(--teal);font-size:19px}.presets{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.presets button{font-size:11px;padding:6px 8px}.resistors-list{display:grid;gap:7px}.res-row{display:grid;grid-template-columns:45px minmax(0,1fr) 75px 27px;gap:6px;align-items:center}.res-row span{color:var(--muted);font-size:12px}.res-row input,.res-row select{padding:7px;font-size:12px}.remove{border:0;background:transparent;color:var(--red);font-size:18px}.notice{color:var(--muted);font-size:12px;margin-top:9px}.footer{text-align:center;color:#6f899a;font-size:11px;margin:18px 0 4px}@media(max-width:1150px){.tools{grid-template-columns:repeat(3,minmax(0,1fr))}.layout{grid-template-columns:1fr}.app{grid-template-columns:205px minmax(0,1fr)}main{padding:20px}}@media(max-width:760px){.app{display:block}aside{padding:13px;gap:12px;border-right:0;border-bottom:1px solid var(--line)}.brand{padding:0}.brand strong{font-size:21px}.nav{display:flex;overflow-x:auto;gap:5px}.nav button{white-space:nowrap;padding:9px}.nav button .ico{width:auto}.about{display:none}main{padding:14px}.hero{padding:20px}.hero:after{display:none}.tools{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.tool-card{min-height:125px;padding:12px}.subgrid{grid-template-columns:1fr 1fr}.converter-line{grid-template-columns:minmax(0,1fr) 68px 30px minmax(0,1fr) 68px;gap:4px}.converter-line .field input,.converter-line .field select{padding:8px 5px;font-size:12px}.panel{padding:13px}}@media(max-width:420px){.tools{grid-template-columns:1fr 1fr}.color-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.converter-line{grid-template-columns:minmax(0,1fr) 65px 30px minmax(0,1fr) 65px}.res-row{grid-template-columns:35px minmax(0,1fr) 65px 22px}.subgrid{grid-template-columns:1fr}}
+
+/* Refined select styling: consistent sizing, spacing and focus states */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  color: var(--text);
+  background-color: #14283a;
+  border: 1px solid #36546a;
+  border-radius: 9px;
+  min-height: 40px;
+  padding: 9px 34px 9px 12px;
+  line-height: 1.25;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23a7bdcd' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 11px center;
+}
+select:hover { border-color: #4c8294; }
+select:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+select option { background: #14283a; color: #edf7ff; }
+.color-fields { gap: 10px; }
+.color-fields > div { min-width: 0; }
+.color-fields label {
+  display: block;
+  font-size: 12px;
+  font-weight: 650;
+  color: #c3d6e4;
+  letter-spacing: .02em;
+}
+.color-fields select {
+  display: block;
+  width: 100%;
+  min-height: 42px;
+  margin-top: 6px;
+  padding: 9px 28px 9px 10px;
+  font-size: 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+#decodePane .color-fields select {
+  box-shadow: inset 4px 0 0 var(--band-accent, #36546a);
+  transition: box-shadow .15s ease, border-color .15s ease;
+}
+#decodePane .color-fields select:focus { border-color: var(--band-accent, var(--teal)); }
+@media(max-width:420px) {
+  .color-fields { gap: 8px; }
+  .color-fields select { padding-left: 8px; padding-right: 25px; font-size: 12px; }
+}
+
+</style>
+</head>
+<body>
+<div class="app">
+<aside>
+  <div class="brand"><div class="bolt">ϟ</div><div><strong>Electro<span>Calc</span></strong><small>Your electronics toolkit</small></div></div>
+  <nav class="nav" aria-label="Main navigation">
+    <button class="active" data-target="home"><span class="ico">⌂</span>Home</button>
+    <button data-target="ohms"><span class="ico">▦</span>Ohm's Law &amp; Power</button>
+    <button data-target="colors"><span class="ico">◉</span>Resistor Color Code</button>
+    <button data-target="units"><span class="ico">⇄</span>Unit Converter</button>
+    <button data-target="led"><span class="ico">♧</span>LED Resistor</button>
+    <button data-target="series"><span class="ico">⑂</span>Series &amp; Parallel</button>
+    <button data-target="filter"><span class="ico">∿</span>Filter Calculator</button>
+  </nav>
+  <div class="about"><strong>ⓘ About ElectroCalc</strong>A handy toolkit for electronics students and hobbyists. Calculate common values quickly and learn as you go.</div>
+</aside>
+<main id="home">
+  <header class="hero"><h1>Welcome to <span>ElectroCalc</span></h1><p>A simple and powerful toolkit for electronics calculations.</p></header>
+  <section class="tools" aria-label="Tools">
+    <button class="tool-card" data-target="ohms"><span class="bigico" style="color:#55cfff">▦</span><strong>Ohm's Law &amp; Power</strong><small>Calculate voltage, current, resistance and power.</small></button>
+    <button class="tool-card" data-target="colors"><span class="bigico" style="color:#c38bff">◉</span><strong>Resistor Color Code</strong><small>Decode or encode resistor values from color bands.</small></button>
+    <button class="tool-card" data-target="units"><span class="bigico" style="color:#22e0c0">⇄</span><strong>Unit Converter</strong><small>Convert common electrical units and SI prefixes.</small></button>
+    <button class="tool-card" data-target="led"><span class="bigico" style="color:#ffb44c">♧</span><strong>LED Resistor Calculator</strong><small>Find the right series resistor for your LED.</small></button>
+    <button class="tool-card" data-target="series"><span class="bigico" style="color:#ff657a">⑂</span><strong>Series &amp; Parallel</strong><small>Calculate total resistance for combinations.</small></button>
+    <button class="tool-card" data-target="filter"><span class="bigico" style="color:#55cfff">∿</span><strong>Filter Calculator</strong><small>Calculate RC cutoff frequency and time constant.</small></button>
+  </section>
+  <div class="layout">
+    <section class="panel" id="ohms">
+      <h2><span class="ico">▦</span> Ohm's Law &amp; Power</h2>
+      <p class="notice" style="margin-top:-8px">Enter any two known values. Leave the others empty.</p>
+      <div class="subgrid">
+        <div class="field"><label for="voltage">Voltage (V)</label><input id="voltage" type="number" min="0" step="any" placeholder="e.g. 12"></div>
+        <div class="field"><label for="current">Current (A)</label><input id="current" type="number" min="0" step="any" placeholder="e.g. 0.02"></div>
+        <div class="field"><label for="resistance">Resistance (Ω)</label><input id="resistance" type="number" min="0" step="any" placeholder="e.g. 600"></div>
+        <div class="field"><label for="power">Power (W)</label><input id="power" type="number" min="0" step="any" placeholder="e.g. 0.24"></div>
+      </div>
+      <div class="actions"><button class="btn primary" id="calcOhms">Calculate</button><button class="btn" id="resetOhms">Reset</button></div>
+      <div class="result hidden" id="ohmResult" aria-live="polite"><h3>Results</h3><div class="result-grid" id="ohmMetrics"></div><div class="formula" id="ohmFormula"></div></div>
+    </section>
+    <section class="panel" id="colors">
+      <h2><span class="ico" style="color:var(--purple)">◉</span> Resistor Color Code</h2>
+      <div class="tabs"><button class="active" id="decodeTab">Decode Colors → Value</button><button id="encodeTab">Encode Value → Colors</button></div>
+      <div id="decodePane">
+        <div class="resistor-wrap"><div class="wire"></div><div class="resistor" id="resistorGraphic"><i class="band" id="band0"></i><i class="band" id="band1"></i><i class="band" id="band2"></i><i class="band" id="band3"></i></div></div>
+        <div class="color-fields">
+          <div><label for="bandSel0">Band 1</label><select id="bandSel0"></select></div><div><label for="bandSel1">Band 2</label><select id="bandSel1"></select></div><div><label for="bandSel2">Multiplier</label><select id="bandSel2"></select></div><div><label for="bandSel3">Tolerance</label><select id="bandSel3"></select></div>
+        </div>
+        <div class="result"><h3>Resistance value</h3><div id="resValue" style="font-size:27px;font-weight:800;color:var(--orange)">1.0 kΩ</div><div id="tolValue" class="notice">Tolerance: ±5%</div></div>
+        <p class="notice">4-band code: the first two bands are digits, the third is the multiplier, and the fourth is tolerance.</p>
+      </div>
+      <div id="encodePane" class="hidden">
+        <div class="field"><label for="encodeValue">Resistance value (Ω)</label><input id="encodeValue" type="number" min="0.01" step="any" value="1000"></div>
+        <div class="field" style="margin-top:10px"><label for="encodeTolerance">Tolerance</label><select id="encodeTolerance"><option value="gold">Gold (±5%)</option><option value="silver">Silver (±10%)</option><option value="brown">Brown (±1%)</option><option value="red">Red (±2%)</option></select></div>
+        <div class="resistor-wrap"><div class="wire"></div><div class="resistor" id="encodedGraphic"><i class="band"></i><i class="band"></i><i class="band"></i><i class="band"></i></div></div>
+        <div class="result"><h3>Color bands</h3><div id="encodedText" style="font-weight:700;color:var(--teal)">Brown · Black · Red · Gold</div></div>
+      </div>
+    </section>
+    <section class="panel" id="units">
+      <h2><span class="ico">⇄</span> Unit Converter</h2>
+      <div class="converter-line">
+        <div class="field"><label for="unitInput">From</label><input id="unitInput" type="number" step="any" value="4.7"></div>
+        <div class="field"><label for="unitFrom">Unit</label><select id="unitFrom"></select></div>
+        <button class="swap" id="swapUnits" title="Swap units" aria-label="Swap units">⇄</button>
+        <div class="field"><label for="unitOutput">To</label><input id="unitOutput" type="text" readonly></div>
+        <div class="field"><label for="unitTo">Unit</label><select id="unitTo"></select></div>
+      </div>
+      <div class="result"><h3>Converted value</h3><div id="unitResult" style="font-size:23px;font-weight:800;color:var(--teal)">4700 Ω</div></div>
+      <div class="presets"><button class="btn" data-preset="voltage">Voltage</button><button class="btn" data-preset="current">Current</button><button class="btn" data-preset="resistance">Resistance</button><button class="btn" data-preset="capacitance">Capacitance</button><button class="btn" data-preset="frequency">Frequency</button></div>
+    </section>
+    <section class="panel" id="led">
+      <h2><span class="ico" style="color:var(--orange)">♧</span> LED Resistor Calculator</h2>
+      <div class="subgrid">
+        <div class="field"><label for="supply">Supply voltage (V)</label><input id="supply" type="number" min="0" step="any" value="5"></div>
+        <div class="field"><label for="forward">LED forward voltage (Vf)</label><input id="forward" type="number" min="0" step="any" value="2"></div>
+        <div class="field"><label for="ledCurrent">Desired current (mA)</label><input id="ledCurrent" type="number" min="0.01" step="any" value="20"></div>
+        <div class="field"><label for="ledCount">LEDs in series</label><input id="ledCount" type="number" min="1" max="50" step="1" value="1"></div>
+      </div>
+      <div class="actions"><button class="btn primary" id="calcLed">Calculate</button><button class="btn" id="resetLed">Reset</button></div>
+      <div class="result hidden" id="ledResult" aria-live="polite"><h3>Recommended resistor</h3><div class="result-grid"><div class="metric"><small>Calculated resistance</small><strong id="ledR">150 Ω</strong></div><div class="metric"><small>Nearest standard value</small><strong id="ledStandard">150 Ω</strong></div><div class="metric"><small>Resistor power</small><strong id="ledP">0.06 W</strong></div><div class="metric"><small>Suggested rating</small><strong id="ledRating">0.125 W</strong></div></div><div class="formula" id="ledFormula"></div></div>
+    </section>
+
+    <section class="panel" id="filter">
+      <h2><span class="ico" style="color:var(--cyan)">∿</span> RC Filter Calculator</h2>
+      <p class="notice" style="margin-top:-8px">Calculate the cutoff frequency of a first-order RC low-pass or high-pass filter.</p>
+      <div class="field" style="margin-bottom:12px">
+        <label for="filterType">Filter type</label>
+        <select id="filterType"><option value="low">Low-pass filter</option><option value="high">High-pass filter</option></select>
+      </div>
+      <div class="subgrid">
+        <div class="field"><label for="filterR">Resistance (Ω)</label><input id="filterR" type="number" min="0.000001" step="any" value="10000"></div>
+        <div class="field"><label for="filterC">Capacitance (F)</label><input id="filterC" type="number" min="0.000000000001" step="any" value="0.00000001"></div>
+      </div>
+      <div class="actions"><button class="btn primary" id="calcFilter">Calculate</button><button class="btn" id="resetFilter">Reset</button></div>
+      <div class="result" id="filterResult" aria-live="polite">
+        <h3>Filter results</h3>
+        <div class="result-grid">
+          <div class="metric"><small>Cutoff frequency (fc)</small><strong id="filterFc">1.59 kHz</strong></div>
+          <div class="metric"><small>Time constant (τ)</small><strong id="filterTau">100 µs</strong></div>
+        </div>
+        <div class="formula" id="filterFormula">fc = 1 / (2πRC)</div>
+      </div>
+      <p class="notice" id="filterDescription">A low-pass filter passes low frequencies and attenuates frequencies above the cutoff.</p>
+    </section>
+
+    <section class="panel" id="series">
+      <h2><span class="ico" style="color:var(--red)">⑂</span> Series &amp; Parallel</h2>
+      <div class="tabs"><button class="active" id="seriesTab">Series</button><button id="parallelTab">Parallel</button></div>
+      <div class="resistors-list" id="resistorList"></div>
+      <div class="actions"><button class="btn" id="addResistor">＋ Add resistor</button><button class="btn primary" id="calcNetwork">Calculate total</button></div>
+      <div class="result"><h3>Total resistance</h3><div id="networkValue" style="font-size:26px;font-weight:800;color:var(--teal)">650 Ω</div><div id="networkFormula" class="formula">Series: Rtotal = R1 + R2 + …</div></div>
+      <p class="notice">Parallel resistors must have positive resistance values.</p>
+    </section>
+  </div>
+  <div class="footer">ElectroCalc · Built for learning electronics · Always verify component ratings before building a circuit.</div>
+</main>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const fmt=(n,d=4)=>Number.isFinite(n)?new Intl.NumberFormat('en-US',{maximumSignificantDigits:d}).format(n):'—';
+const ohmFmt=n=>{if(!Number.isFinite(n))return '—';let a=Math.abs(n);return a>=1e6?fmt(n/1e6)+' MΩ':a>=1e3?fmt(n/1e3)+' kΩ':fmt(n)+' Ω'};
+const voltFmt=n=>Math.abs(n)>=1?fmt(n)+' V':Math.abs(n)>=.001?fmt(n*1000)+' mV':fmt(n*1e6)+' µV';
+const currentFmt=n=>Math.abs(n)>=1?fmt(n)+' A':Math.abs(n)>=.001?fmt(n*1000)+' mA':fmt(n*1e6)+' µA';
+const powerFmt=n=>Math.abs(n)>=1?fmt(n)+' W':Math.abs(n)>=.001?fmt(n*1000)+' mW':fmt(n*1e6)+' µW';
+function err(msg){alert(msg)}
+document.querySelectorAll('[data-target]').forEach(b=>b.addEventListener('click',()=>{let id=b.dataset.target;if(id==='home')window.scrollTo({top:0,behavior:'smooth'});else $(id).scrollIntoView({behavior:'smooth',block:'start'});document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.target===id));}));
+function calculateOhms(){
+  const keys=['voltage','current','resistance','power'], v={};
+  for(const k of keys){
+    const raw=$(k).value.trim();
+    v[k]=raw===''?null:Number(raw);
+    if(v[k]!==null&&(!Number.isFinite(v[k])||v[k]<0)){
+      err('Please enter valid non-negative values.'); return;
+    }
+  }
+  const known=keys.filter(k=>v[k]!==null);
+  if(known.length<2){err('Enter at least two known values.');return;}
+
+  let V=v.voltage, I=v.current, R=v.resistance, P=v.power, formula='';
+  const close=(a,b)=>Math.abs(a-b)<=Math.max(1e-9,Math.max(Math.abs(a),Math.abs(b))*1e-6);
+  // Derive the missing values from a supported pair, without overwriting user inputs.
+  if(V!==null&&I!==null){
+    P=V*I; R=I!==0?V/I:null;
+    formula='P = V × I; R = V / I';
+  } else if(V!==null&&R!==null){
+    if(R===0&&V!==0){err('Resistance must be greater than zero when voltage is non-zero.');return;}
+    I=R===0?null:V/R; P=V*(I??0);
+    formula='I = V / R; P = V × I';
+  } else if(I!==null&&R!==null){
+    V=I*R; P=V*I;
+    formula='V = I × R; P = V × I';
+  } else if(V!==null&&P!==null){
+    if(V===0&&P>0){err('Voltage must be greater than zero to calculate current from power.');return;}
+    I=V===0?0:P/V; R=I!==0?V/I:null;
+    formula='I = P / V; R = V / I';
+  } else if(I!==null&&P!==null){
+    if(I===0&&P>0){err('Current must be greater than zero to calculate voltage from power.');return;}
+    V=I===0?0:P/I; R=I!==0?V/I:null;
+    formula='V = P / I; R = V / I';
+  } else if(R!==null&&P!==null){
+    if(R===0&&P>0){err('Resistance must be greater than zero when power is non-zero.');return;}
+    I=R===0?0:Math.sqrt(P/R); V=I*R;
+    formula='I = √(P / R); V = I × R';
+  } else {
+    err('Those two values are not enough for a unique calculation. Try voltage + current, voltage + resistance, current + resistance, voltage + power, current + power, or resistance + power.');
+    return;
+  }
+
+  // When four values were supplied, check that the values agree with each other.
+  if(known.length>=3){
+    const expected={voltage:V,current:I,resistance:R,power:P};
+    for(const k of known){
+      if(expected[k]!==null && expected[k]!==undefined && !close(v[k],expected[k])){
+        err('The entered values are inconsistent. Please check the voltage, current, resistance and power values.');
+        return;
+      }
+    }
+  }
+  const result={voltage:V,current:I,resistance:R,power:P};
+  $('ohmResult').classList.remove('hidden');
+  $('ohmMetrics').innerHTML=[
+    ['Voltage',result.voltage,voltFmt],
+    ['Current',result.current,currentFmt],
+    ['Resistance',result.resistance,ohmFmt],
+    ['Power',result.power,powerFmt]
+  ].map(([name,value,formatter])=>`<div class="metric"><small>${name}</small><strong>${value===null||value===undefined||!Number.isFinite(value)?'—':formatter(value)}</strong></div>`).join('');
+  $('ohmFormula').textContent='Formula used: '+formula;
+}
+$('calcOhms').onclick=calculateOhms;$('resetOhms').onclick=()=>{['voltage','current','resistance','power'].forEach(k=>$(k).value='');$('ohmResult').classList.add('hidden')};
+const colors=[['Black','#161a1d',0],['Brown','#7a3e20',1],['Red','#ed3038',2],['Orange','#f28a26',3],['Yellow','#f5d447',4],['Green','#1a9b62',5],['Blue','#2877d8',6],['Violet','#8c4cc7',7],['Grey','#929ba4',8],['White','#f1f4f6',9],['Gold','#d9ae39',-1],['Silver','#c5cbd1',-2]];
+const tolerance=[['Brown',1],['Red',2],['Green',.5],['Blue',.25],['Violet',.1],['Grey',.05],['Gold',5],['Silver',10]];
+function populateColorSelects(){[0,1].forEach(i=>{let s=$('bandSel'+i);s.innerHTML=colors.slice(0,10).map(c=>`<option value="${c[0]}">${c[0]}</option>`).join('')});$('bandSel2').innerHTML=colors.map(c=>`<option value="${c[0]}">${c[0]} · ${c[2]===-1?'×0.1':c[2]===-2?'×0.01':'×'+Math.pow(10,c[2])}</option>`).join('');$('bandSel3').innerHTML=tolerance.map(c=>`<option value="${c[0]}">${c[0]} · ±${c[1]}%</option>`).join('');$('bandSel0').value='Brown';$('bandSel1').value='Black';$('bandSel2').value='Red';$('bandSel3').value='Gold';}
+function updateResistor(){
+  const a=$('bandSel0').value,b=$('bandSel1').value,m=$('bandSel2').value,t=$('bandSel3').value;
+  const c1=colors.find(c=>c[0]===a),c2=colors.find(c=>c[0]===b),cm=colors.find(c=>c[0]===m),tol=tolerance.find(c=>c[0]===t);
+  const bandColors=[c1[1],c2[1],cm[1],colors.find(c=>c[0]===t)?.[1]];
+  ['band0','band1','band2','band3'].forEach((id,i)=>{$(id).style.backgroundColor=bandColors[i];});
+  [0,1,2,3].forEach(i=>{
+    const select=$('bandSel'+i);
+    select.style.setProperty('--band-accent',bandColors[i]);
+    select.style.borderColor=bandColors[i];
+    select.style.boxShadow=`inset 4px 0 0 ${bandColors[i]}`;
+  });
+  const value=(c1[2]*10+c2[2])*Math.pow(10,cm[2]);
+  $('resValue').textContent=ohmFmt(value);
+  $('tolValue').textContent='Tolerance: ±'+tol[1]+'%';
+}
+populateColorSelects();[0,1,2,3].forEach(i=>$('bandSel'+i).addEventListener('change',updateResistor));updateResistor();
+$('decodeTab').onclick=()=>{$('decodeTab').classList.add('active');$('encodeTab').classList.remove('active');$('decodePane').classList.remove('hidden');$('encodePane').classList.add('hidden')};
+$('encodeTab').onclick=()=>{$('encodeTab').classList.add('active');$('decodeTab').classList.remove('active');$('encodePane').classList.remove('hidden');$('decodePane').classList.add('hidden');updateEncode()};
+function updateEncode(){let value=Number($('encodeValue').value);if(!(value>0&&Number.isFinite(value))){$('encodedText').textContent='Enter a positive resistance value';return}let exponent=Math.floor(Math.log10(value))-1;let digits=Math.round(value/Math.pow(10,exponent));if(digits>=100){digits=Math.round(digits/10);exponent++}if(digits<10){digits*=10;exponent--}if(exponent>9||exponent< -2){$('encodedText').textContent='Value is outside the supported 4-band range';return}let d1=Math.floor(digits/10),d2=digits%10,cm=colors.find(c=>c[2]===exponent),names=[colors[d1][0],colors[d2][0],cm?.[0],$('encodeTolerance').value];if(!cm){$('encodedText').textContent='Value is outside the supported range';return}document.querySelectorAll('#encodedGraphic .band').forEach((el,i)=>el.style.background=colors.find(c=>c[0]===names[i])?.[1]||'#ddd');$('encodedText').textContent=names.join(' · ');$('encodedGraphic').title=ohmFmt(value)+' (approximate 2 significant digits)'}
+$('encodeValue').addEventListener('input',updateEncode);$('encodeTolerance').addEventListener('change',updateEncode);updateEncode();
+const groups={voltage:[['V',1],['mV',1e-3],['µV',1e-6],['kV',1e3]],current:[['A',1],['mA',1e-3],['µA',1e-6],['nA',1e-9]],resistance:[['Ω',1],['kΩ',1e3],['MΩ',1e6],['mΩ',1e-3]],capacitance:[['F',1],['mF',1e-3],['µF',1e-6],['nF',1e-9],['pF',1e-12]],frequency:[['Hz',1],['kHz',1e3],['MHz',1e6],['GHz',1e9]],power:[['W',1],['mW',1e-3],['µW',1e-6],['kW',1e3]]};
+function fillUnits(group,from='kΩ',to='Ω',value='4.7'){let units=groups[group];$('unitFrom').innerHTML=units.map(u=>`<option value="${u[1]}">${u[0]}</option>`).join('');$('unitTo').innerHTML=units.map(u=>`<option value="${u[1]}">${u[0]}</option>`).join('');$('unitFrom').value=String(units.find(u=>u[0]===from)?.[1]??units[0][1]);$('unitTo').value=String(units.find(u=>u[0]===to)?.[1]??units[1]?.[1]??units[0][1]);$('unitInput').value=value;updateUnits()}
+function updateUnits(){let n=Number($('unitInput').value),from=Number($('unitFrom').value),to=Number($('unitTo').value);if($('unitInput').value.trim()===''||!Number.isFinite(n)){$('unitOutput').value='';$('unitResult').textContent='Enter a value';return}let result=n*from/to;$('unitOutput').value=fmt(result,7);let unit=$('unitTo').selectedOptions[0]?.textContent||'';$('unitResult').textContent=fmt(result,7)+' '+unit}
+fillUnits('resistance');['unitInput','unitFrom','unitTo'].forEach(id=>$(id).addEventListener('input',updateUnits));$('swapUnits').onclick=()=>{let f=$('unitFrom').value,t=$('unitTo').value;$('unitFrom').value=t;$('unitTo').value=f;updateUnits()};document.querySelectorAll('[data-preset]').forEach(b=>b.onclick=()=>{let g=b.dataset.preset;let defaults={voltage:['V','mV','12'],current:['A','mA','0.02'],resistance:['kΩ','Ω','4.7'],capacitance:['µF','nF','0.1'],frequency:['kHz','Hz','1']};fillUnits(g,...defaults[g])});
+function calculateLed(){let vs=Number($('supply').value),vf=Number($('forward').value),ma=Number($('ledCurrent').value),count=Number($('ledCount').value);if(![vs,vf,ma,count].every(Number.isFinite)||vs<0||vf<0||ma<=0||count<1||!Number.isInteger(count)){err('Enter valid values. Current must be positive and LED count must be a positive integer.');return}let drop=vs-vf*count;if(drop<=0){err('Supply voltage must be greater than the combined forward voltage of the LEDs.');return}let I=ma/1000,R=drop/I,P=I*I*R;let standards=[10,12,15,18,22,27,33,39,47,56,68,82].flatMap(x=>[1,10,100,1000].map(y=>x*y));let standard=standards.find(x=>x>=R)||Math.ceil(R/1000)*1000;let rating=P<.125?.125:P<.25?.25:P<.5?.5:P<1?1:2;$('ledResult').classList.remove('hidden');$('ledR').textContent=ohmFmt(R);$('ledStandard').textContent=ohmFmt(standard);$('ledP').textContent=powerFmt(P);$('ledRating').textContent='≥ '+fmt(rating)+' W';$('ledFormula').textContent=`R = (Vs − n × Vf) / I = (${fmt(vs)} − ${count} × ${fmt(vf)}) / ${fmt(ma)} mA. Power at the calculated resistance: P = I²R. The standard value is rounded up for a conservative current estimate.`}
+$('calcLed').onclick=calculateLed;$('resetLed').onclick=()=>{$('supply').value=5;$('forward').value=2;$('ledCurrent').value=20;$('ledCount').value=1;$('ledResult').classList.add('hidden')};
+let mode='series',rCount=3;
+function renderResistors(){let list=$('resistorList');list.innerHTML='';for(let i=0;i<rCount;i++){let row=document.createElement('div');row.className='res-row';row.innerHTML=`<span>R${i+1}</span><input type="number" min="0.000001" step="any" value="${[100,220,330,470,1000][i]||100}" aria-label="Resistor ${i+1} value"><select aria-label="Resistor ${i+1} unit"><option>Ω</option><option>kΩ</option><option>MΩ</option></select><button class="remove" aria-label="Remove resistor ${i+1}" title="Remove resistor">×</button>`;row.querySelector('.remove').onclick=()=>{if(rCount<=2){err('Keep at least two resistors.');return}row.remove();rCount--;[...list.children].forEach((el,j)=>el.querySelector('span').textContent='R'+(j+1));calculateNetwork()};list.appendChild(row)}calculateNetwork()}
+function calculateNetwork(){let vals=[...$('resistorList').children].map(row=>{let n=Number(row.querySelector('input').value),u=row.querySelector('select').value;return n*(u==='kΩ'?1e3:u==='MΩ'?1e6:1)});if(vals.length<2||vals.some(v=>!Number.isFinite(v)||v<=0)){$('networkValue').textContent='Check input values';return}let total=mode==='series'?vals.reduce((a,b)=>a+b,0):1/vals.reduce((a,b)=>a+1/b,0);$('networkValue').textContent=ohmFmt(total);$('networkFormula').textContent=mode==='series'?'Series: Rtotal = '+vals.map(ohmFmt).join(' + ')+' = '+ohmFmt(total):'Parallel: 1/Rtotal = '+vals.map(v=>'1/'+ohmFmt(v)).join(' + ')+'; Rtotal = '+ohmFmt(total)}
+$('seriesTab').onclick=()=>{mode='series';$('seriesTab').classList.add('active');$('parallelTab').classList.remove('active');calculateNetwork()};$('parallelTab').onclick=()=>{mode='parallel';$('parallelTab').classList.add('active');$('seriesTab').classList.remove('active');calculateNetwork()};$('addResistor').onclick=()=>{if(rCount>=12){err('Maximum of 12 resistors.');return}rCount++;renderResistors()};$('calcNetwork').onclick=calculateNetwork;$('resistorList').addEventListener('input',calculateNetwork);$('resistorList').addEventListener('change',calculateNetwork);renderResistors();
+
+function calculateFilter(){
+  const R=Number($('filterR').value), C=Number($('filterC').value), type=$('filterType').value;
+  if(!Number.isFinite(R)||!Number.isFinite(C)||R<=0||C<=0){
+    err('Resistance and capacitance must both be positive numbers.'); return;
+  }
+  const tau=R*C, fc=1/(2*Math.PI*tau);
+  const freq = fc>=1e6 ? fmt(fc/1e6)+' MHz' : fc>=1e3 ? fmt(fc/1e3)+' kHz' : fc>=1 ? fmt(fc)+' Hz' : fmt(fc*1e3)+' mHz';
+  const time = tau>=1 ? fmt(tau)+' s' : tau>=1e-3 ? fmt(tau*1e3)+' ms' : tau>=1e-6 ? fmt(tau*1e6)+' µs' : fmt(tau*1e9)+' ns';
+  $('filterFc').textContent=freq; $('filterTau').textContent=time;
+  $('filterFormula').textContent=`fc = 1 / (2πRC) = 1 / (2π × ${fmt(R)} Ω × ${fmt(C,5)} F). τ = RC.`;
+  $('filterDescription').textContent=type==='low'
+    ? 'Low-pass: frequencies below the cutoff pass more easily; frequencies above the cutoff are attenuated.'
+    : 'High-pass: frequencies above the cutoff pass more easily; frequencies below the cutoff are attenuated.';
+}
+$('calcFilter').onclick=calculateFilter;
+$('resetFilter').onclick=()=>{$('filterType').value='low';$('filterR').value=10000;$('filterC').value=0.00000001;calculateFilter()};
+$('filterType').addEventListener('change',calculateFilter);
+
+calculateFilter();
+</script>
+</body>
+</html>
